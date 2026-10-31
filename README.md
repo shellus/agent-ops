@@ -1,6 +1,8 @@
 # agent-ops
 
-让 Codex / Claude Code 像小团队一样协作的 Agent Skill：主 Agent 负责需求、方向和验收，子 Agent 作为能力相当的同事负责实现，并提供查找历史会话、交接恢复和远程控制 Codex 会话的脚本。
+让 Codex / Claude Code 像小团队一样协作的 Agent Skill：主 Agent 负责需求、方向和验收，被委派的 Agent 作为能力相当的同事负责实现，并提供查找历史会话、交接恢复和远程控制 Codex 会话的脚本。
+
+> 前提：本 skill 假设主 Agent 与被委派的 Agent 能力相当，典型场景是 Claude Opus 调度 Codex 的前沿模型。用能力差距较大的模型（如 Opus 调度 Haiku）时，放权与精简任务包的规则并不合适。
 
 ## 功能与优势
 
@@ -25,6 +27,7 @@
 
 ## 多 Agent 协作
 - 分解或委派任务、并行开发、监督或接手其他 Agent、查找或总结历史会话时，先加载 agent-ops skill，按其中的分工模型、任务包与交付摘要格式执行。
+- （可选，已安装 Codex 时）委派开发任务默认交给 Codex，用 agent-ops 的 scripts/codex_ctl.py 启动和监督。
 
 安装后确认 SKILL.md 位于 skills/agent-ops/SKILL.md，并运行 python <skill-dir>/scripts/codex_ctl.py --help 验证脚本可用。
 ```

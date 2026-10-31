@@ -1,9 +1,11 @@
 ---
 name: agent-ops
-description: "Coordinate, inspect, and continue work across active or historical Codex and Claude agents. Use for decomposing and delegating tasks, assigning worktree ownership, monitoring or redirecting agents, collecting and integrating results, locating or summarizing conversations, and handing off, recovering, or taking over interrupted work."
+description: "Coordinate, inspect, and continue work across peer-level agents (e.g. Claude Opus delegating to Codex) and their active or historical Codex and Claude sessions. Use for decomposing and delegating tasks, assigning worktree ownership, monitoring or redirecting agents, collecting and integrating results, locating or summarizing conversations, and handing off, recovering, or taking over interrupted work."
 ---
 
 # Agent Ops
+
+本 skill 假设主 Agent 与被委派的 Agent 能力相当，典型场景是 Claude Opus 调度 Codex 的前沿模型；以下规则都建立在这一前提上。委派给哪个 Agent 由用户当次指定或全局指令决定。
 
 主 Agent 与被委派的 Agent 是能力相当的同事，分工按决定权划分：
 
@@ -27,9 +29,9 @@ description: "Coordinate, inspect, and continue work across active or historical
 
 ## 工具优先级
 
-1. 优先使用当前平台提供的原生 Agent 列举、委派、消息、等待、中断和恢复能力。
+1. 委派目标以用户当次指定或全局指令为准。目标是 Codex 时用 `scripts/codex_ctl.py`，不用 `codex exec` 配合后台进程和 `kill`；目标是当前平台的 Agent 时用平台原生的委派、消息、等待、中断和恢复能力。
 2. 能继续原 Agent 时优先继续，不因方便另起一个拥有重叠职责的 Agent。
-3. 原生能力无法覆盖外部或历史会话时，使用本 skill 的查询脚本；控制 Codex 会话使用 `scripts/codex_ctl.py`，不用 `codex exec` 配合后台进程和 `kill`。
+3. 原生能力和 `codex_ctl.py` 无法覆盖外部或历史会话时，使用本 skill 的查询脚本。
 4. 仅在脚本和原生能力都不足时检查进程、文件描述符或底层会话存储；不要用“最新文件”猜测会话身份。
 
 ## 共同原则
